@@ -1,12 +1,24 @@
-
+import { Header } from "./components/Header";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Hero } from "./components/Hero";
 
 function App() {
-
   return (
-    <>
-    <h3 className='bg-red'>Discord Clone</h3>
-    </>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route
+          exact
+          path="/"
+          element={
+            <>
+              <Header />
+              <Hero />
+            </>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
