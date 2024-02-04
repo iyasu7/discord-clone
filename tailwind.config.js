@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin')
 export default {
   content: [
     "./index.html",
@@ -13,6 +14,11 @@ export default {
         discord_green: "#3ba55c",
       },},
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities, addComponents, e, config }) {
+      // Add your custom styles here
+    }),
+    // eslint-disable-next-line no-undef
+    require('tailwind-scrollbar-hide')],
 }
 

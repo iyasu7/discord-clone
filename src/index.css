@@ -9,4 +9,7 @@
     .server-default {
         @apply flex items-center justify-center bg-[#36393f] cursor-pointer hover:rounded-2xl p-2 rounded-full transition-all duration-100 ease-out hover:bg-discord_blue;
     }
+    .icon {
+        @apply h-6 text-[#b9bbbe]  cursor-pointer hover:text-[#dcddde]
+    }
 }
