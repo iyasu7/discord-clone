@@ -57,4 +57,5 @@ Message.propTypes = {
   name: PropTypes.string.isRequired,
   photoURL: PropTypes.string.isRequired,
   email: PropTypes.string.isRequired,
+  timestamp: PropTypes.any 
 };
