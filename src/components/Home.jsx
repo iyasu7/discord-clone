@@ -16,6 +16,7 @@ import { Channel } from "./Channel";
 import { collection, addDoc } from "firebase/firestore";
 
 import { useCollection } from "react-firebase-hooks/firestore";
+import { Chat } from "./Chat";
 export const Home = () => {
   const [user] = useAuthState(auth);
   const navigateTo = useNavigate();
@@ -23,12 +24,12 @@ export const Home = () => {
     snapshotListenOptions: { includeMetadataChanges: true },
   });
 
-  const loader = async () => {
-    if (!user) {
-      return redirect("/");
-    }
-    return null;
-  };
+  // const loader = async () => {
+  //   if (!user) {
+  //     return redirect("/");
+  //   }
+  //   return null;
+  // };
 
   const handleAddChannel = async (e) => {
     e.preventDefault();
@@ -38,8 +39,6 @@ export const Home = () => {
         console.log(channelName);
         const docRef = await addDoc(collection(db, "channels"), {
           channelName: channelName,
-          state: "CA",
-          country: "USA",
         });
         console.log("Document written with ID: ", docRef.id);
       } catch (e) {
@@ -52,14 +51,20 @@ export const Home = () => {
     redirect("/");
   }
   useEffect(() => {
+    const loader = async () => {
+      if (!user) {
+        navigateTo('/');
+      }
+    };
+
     loader();
-  }, []);
+  }, [user, navigateTo]);
 
   return (
     <>
-    {!user ? navigateTo('/') :
-      <div className="flex h-screen">
-        <div className="flex flex-col space-y-3 min-w-max p-4 bg-[#202225]">
+    {/* {!user ? navigateTo('/') : */}
+      <div className="flex h-screen overflow-y-hidden scrollbar-hide">
+        <div className="flex flex-col space-y-3 min-w-max p-4 bg-[#202225] overflow-y-scroll scrollbar-hide">
           <div className="server-default hover:bg-discord_blue">
             <img alt="logo" src={logo} className="h-8 rounded-full"></img>
           </div>
@@ -108,7 +113,7 @@ export const Home = () => {
                 {user?.displayName}
                 <span className="text-[#b9bbbe] block">
                   {" "}
-                  #{user?.uid.substring(0, 4)}
+                  #{user?.uid.substring(0, 5)}
                 </span>
               </h4>
             </div>
@@ -125,8 +130,11 @@ export const Home = () => {
             </div>
           </div>
         </div>
+        <div className="bg-[#36393f] flex-grow">
+          <Chat/>
+        </div>
       </div>
-      }
+      {/* } */}
     </>
   );
 };
